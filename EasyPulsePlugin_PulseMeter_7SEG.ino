@@ -43,9 +43,6 @@ void loop() {
   if (Range > Minimum_Range){  // ADC range is > 70, otherwise increase gain
     Filter_Data();
     Serial.println("Data Filtered ");
-    Compute_Pulse_Rate();
-    Serial.println("Pulse rate computed ");
-    Display_PulseRate();
   }
   else{
     Print_Error_Message();
@@ -105,15 +102,7 @@ void Scale_Data(){
   
 } // Scale_Data
 
-void Find_Peak(int Num){
-  Peak_Magnitude = 0;
-  for (int m = Num; m < Num_Samples-Num; m++){
-      if(Peak_Magnitude < ADC_Samples[m]){
-        Peak_Magnitude = ADC_Samples[m];
-     }
-  }
-} // Find_Peak
-/*
+
 void Filter_Data(){
   int Num_Points = 2*Moving_Average_Num+1;
   for (int i = Moving_Average_Num; i < Num_Samples-Moving_Average_Num; i++){
@@ -124,7 +113,7 @@ void Filter_Data(){
     ADC_Samples[i] = Sum_Points/Num_Points; 
   } 
 }  // Filter_Date
-*/
+
 
 void Compute_Pulse_Rate(){
   // Detect Peak magnitude and minima
