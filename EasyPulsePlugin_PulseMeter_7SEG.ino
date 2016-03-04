@@ -113,7 +113,7 @@ void Find_Peak(int Num){
      }
   }
 } // Find_Peak
-
+/*
 void Filter_Data(){
   int Num_Points = 2*Moving_Average_Num+1;
   for (int i = Moving_Average_Num; i < Num_Samples-Moving_Average_Num; i++){
@@ -124,7 +124,7 @@ void Filter_Data(){
     ADC_Samples[i] = Sum_Points/Num_Points; 
   } 
 }  // Filter_Date
-
+*/
 
 void Compute_Pulse_Rate(){
   // Detect Peak magnitude and minima
