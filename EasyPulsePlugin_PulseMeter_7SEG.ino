@@ -14,7 +14,7 @@ LedControl lc=LedControl(7,6,5,1);
 #define Sampling_Time 5
 #define Num_Samples 400
 #define Peak_Threshold_Factor 85
-#define Minimum_Range 500
+#define Minimum_Range 254
 #define Minimum_Peak_Separation 75  // 75*5=375 ms
 #define DC_Added 10;
 #define Moving_Average_Num 5
