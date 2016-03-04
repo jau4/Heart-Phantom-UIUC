@@ -25,6 +25,7 @@ void setup() {
   lc.setIntensity(0,15);  // Set brightness level (0 is min, 15 is max)
   lc.clearDisplay(0);     // Clear display register
   Serial.begin(9600);
+  pinMode(DAC0,OUTPUT);
 }
 
 int ADC_Samples[Num_Samples], Index1, Index2, Index3, Peak1, Peak2, Peak3;
