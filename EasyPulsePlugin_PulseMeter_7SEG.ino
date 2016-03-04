@@ -32,6 +32,13 @@ int ADC_Samples[Num_Samples], Index1, Index2, Index3, Peak1, Peak2, Peak3;
 long Pulse_Rate, Temp1=1L, Pulse_Time1, Pulse_Time2;
 int Peak_Magnitude, Peak_Threshold, Minima, Range;
 
++void Find_Peak(int Num){
+ +  Peak_Magnitude = 0;
+ +  for (int m = Num; m < Num_Samples-Num; m++){
+ +      if(Peak_Magnitude < ADC_Samples[m]){
+         Peak_Magnitude = ADC_Samples[m];
+      }
+ }
 void loop() {
   
   Read_ADC_Samples();
