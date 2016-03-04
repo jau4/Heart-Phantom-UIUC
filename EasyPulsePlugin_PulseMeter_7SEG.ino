@@ -115,63 +115,9 @@ void Filter_Data(){
   } 
 }  // Filter_Date
 
-
-void Compute_Pulse_Rate(){
-  // Detect Peak magnitude and minima
-  Find_Peak(Moving_Average_Num);
-  Find_Minima(Moving_Average_Num);
-  Range = Peak_Magnitude - Minima;
-  Peak_Threshold = Peak_Magnitude*Peak_Threshold_Factor;
-  Peak_Threshold = Peak_Threshold/100;
- 
-  // Now detect three peaks 
-  Peak1 = 0;
-  Peak2 = 0;
-  Peak3 = 0;
-  Index1 = 0;
-  Index2 = 0;
-  Index3 = 0;
-  // Find first peak
-  for (int j = Moving_Average_Num; j < Num_Samples-Moving_Average_Num; j++){
-      if(ADC_Samples[j] >= ADC_Samples[j-1] && ADC_Samples[j] > ADC_Samples[j+1] && 
-         ADC_Samples[j] > Peak_Threshold && Peak1 == 0){
-        Peak1 = ADC_Samples[j];
-        Index1 = j; 
-      }
-      
-      // Search for second peak which is at least 10 sample time far
-      if(Peak1 > 0 && j > (Index1+Minimum_Peak_Separation) && Peak2 == 0){
-         if(ADC_Samples[j] >= ADC_Samples[j-1] && ADC_Samples[j] > ADC_Samples[j+1] && 
-         ADC_Samples[j] > Peak_Threshold){
-         Peak2 = ADC_Samples[j];
-         Index2 = j; 
-         } 
-      } // Peak1 > 0
-      
-      // Search for the third peak which is at least 10 sample time far
-      if(Peak2 > 0 && j > (Index2+Minimum_Peak_Separation) && Peak3 == 0){
-         if(ADC_Samples[j] >= ADC_Samples[j-1] && ADC_Samples[j] > ADC_Samples[j+1] && 
-         ADC_Samples[j] > Peak_Threshold){
-            Peak3 = ADC_Samples[j];
-            Index3 = j; 
-         } 
-      } // Peak2 > 0
-    
-  }
-  Serial.print("Index1 = ");
-  Serial.println(Index1);
-  Serial.print("Index2 = ");
-  Serial.println(Index2);
-  Serial.print("Index3 = ");
-  Serial.println(Index3);
-  
-  
-  Pulse_Time1 = (Index2-Index1)*Sampling_Time; // In milliseconds
-  Pulse_Time2 = (Index3-Index2)*Sampling_Time;
-  
-  if(Pulse_Time1 > 0 && Pulse_Time1 > 0){
-    Pulse_Rate = 2*60000/(Pulse_Time1+Pulse_Time2); // In BPM
-  }
-  Serial.print("Pulse Rate (BPM) = ");
-  Serial.println(Pulse_Rate);
-}  // Compute_Pulse_Rate
+void Output_Signal(){
+   for(int i = 0; i < Sampling_Time*Num_Samples; i++){
+      analogWrite(DAC0, ADC_Samples[i]);
+      delay(5);
+   }
+}
