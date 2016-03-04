@@ -93,7 +93,7 @@ void Scale_Data(){
   Serial.println(Range);
   // Sclae from 1 to 1023 
   for (int i = 0; i < Num_Samples; i++){
-     ADC_Samples[i] = map(ADC_Samples[i], 0, Range, 1, 1023);
+     ADC_Samples[i] = map(ADC_Samples[i], 0, Range, 0, 255);
      
   }
   Find_Peak(0);
