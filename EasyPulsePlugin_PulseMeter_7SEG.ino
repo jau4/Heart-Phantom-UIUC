@@ -185,24 +185,3 @@ void Compute_Pulse_Rate(){
   Serial.print("Pulse Rate (BPM) = ");
   Serial.println(Pulse_Rate);
 }  // Compute_Pulse_Rate
-
-
- void Display_PulseRate(){ 
-  
-  // Display BPM
-  lc.clearDisplay(0);     // Clear display register
-  lc.setDigit(0,0,Pulse_Rate%10,false);
-  lc.setDigit(0,1,(Pulse_Rate/10)%10,false);
-  if(Pulse_Rate > 99) 
-  lc.setDigit(0,2,Pulse_Rate/100,false);
- 
-  delay(100);
-  
-}  // Display_Pulserate
-
- void Print_Error_Message(){
-  lc.setChar(0, 3, 'E', false); 
-  lc.setChar(0, 2, 'E', false); 
-  lc.setChar(0, 1, 'E', false);
-  lc.setChar(0, 0, 'E', false);
- }
