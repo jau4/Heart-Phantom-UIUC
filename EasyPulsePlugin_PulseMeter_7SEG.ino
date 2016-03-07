@@ -4,12 +4,11 @@
    
    Written by: Raj Bhatt (www.Embedded-Lab.com)
    Date: May 5, 2015
-
 */
 
-#include "LedControl.h"
+
 // Arduino Pin 7 to DIN, 6 to Clk, 5 to LOAD, no.of devices is 1
-LedControl lc=LedControl(7,6,5,1);
+
 
 #define Sampling_Time 5
 #define Num_Samples 400
@@ -18,12 +17,10 @@ LedControl lc=LedControl(7,6,5,1);
 #define Minimum_Peak_Separation 75  // 75*5=375 ms
 #define DC_Added 10;
 #define Moving_Average_Num 5
+int DAC0 = 9;
 
 void setup() {
    // Initialize the MAX7219 device
-  lc.shutdown(0,false);   // Enable display
-  lc.setIntensity(0,15);  // Set brightness level (0 is min, 15 is max)
-  lc.clearDisplay(0);     // Clear display register
   Serial.begin(9600);
   pinMode(DAC0,OUTPUT);
 }
@@ -32,13 +29,14 @@ int ADC_Samples[Num_Samples], Index1, Index2, Index3, Peak1, Peak2, Peak3;
 long Pulse_Rate, Temp1=1L, Pulse_Time1, Pulse_Time2;
 int Peak_Magnitude, Peak_Threshold, Minima, Range;
 
-+void Find_Peak(int Num){
- +  Peak_Magnitude = 0;
- +  for (int m = Num; m < Num_Samples-Num; m++){
- +      if(Peak_Magnitude < ADC_Samples[m]){
+void Find_Peak(int Num){
+   Peak_Magnitude = 0;
+   for (int m = Num; m < Num_Samples-Num; m++){
+       if(Peak_Magnitude < ADC_Samples[m]){
          Peak_Magnitude = ADC_Samples[m];
       }
  }
+}
 void loop() {
   
   Read_ADC_Samples();
@@ -51,9 +49,6 @@ void loop() {
   if (Range > Minimum_Range){  // ADC range is > 70, otherwise increase gain
     Filter_Data();
     Serial.println("Data Filtered ");
-  }
-  else{
-    Print_Error_Message();
   }
   
 }  // Main Loop
