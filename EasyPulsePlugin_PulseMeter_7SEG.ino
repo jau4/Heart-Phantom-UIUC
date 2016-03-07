@@ -17,7 +17,7 @@
 #define Minimum_Peak_Separation 75  // 75*5=375 ms
 #define DC_Added 10;
 #define Moving_Average_Num 5
-int DAC0 = 9;
+#define DAC0 9
 
 void setup() {
    // Initialize the MAX7219 device
