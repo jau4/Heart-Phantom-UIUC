@@ -49,6 +49,7 @@ void loop() {
   if (Range > Minimum_Range){  // ADC range is > 70, otherwise increase gain
     Filter_Data();
     Serial.println("Data Filtered ");
+    Output_Signal();
   }
   
 }  // Main Loop
